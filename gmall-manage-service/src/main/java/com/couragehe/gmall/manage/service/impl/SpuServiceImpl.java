@@ -1,5 +1,6 @@
 package com.couragehe.gmall.manage.service.impl;
 
+
 import com.alibaba.dubbo.config.annotation.Service;
 import com.couragehe.gmall.bean.PmsProductImage;
 import com.couragehe.gmall.bean.PmsProductInfo;
@@ -13,6 +14,7 @@ import com.couragehe.gmall.service.SpuService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+
 @Service
 public class SpuServiceImpl implements SpuService {
     @Autowired
@@ -40,7 +42,7 @@ public class SpuServiceImpl implements SpuService {
         List<PmsProductSaleAttr> pmsProductSaleAttrs = pmsProductSaleAttrMapper.select(pmsProductSaleAttr);
 
         //封装商品销售属性值列表
-        for(PmsProductSaleAttr productSaleAttr : pmsProductSaleAttrs){
+        for (PmsProductSaleAttr productSaleAttr : pmsProductSaleAttrs) {
             //attr_id 与 spu_id复合查询
 
             PmsProductSaleAttrValue pmsProductSaleAttrValue = new PmsProductSaleAttrValue();
@@ -68,22 +70,22 @@ public class SpuServiceImpl implements SpuService {
 
         //保存商品图片元信息
         List<PmsProductImage> pmsProductImages = pmsProductInfo.getSpuImageList();
-        for(PmsProductImage pmsProductImage : pmsProductImages){
+        for (PmsProductImage pmsProductImage : pmsProductImages) {
             pmsProductImage.setProductId(pmsProductInfo.getId());
             pmsProductImageMapper.insertSelective(pmsProductImage);
         }
 
         //保存销售属性信息
         List<PmsProductSaleAttr> PmsProductSaleAttrs = pmsProductInfo.getSpuSaleAttrList();
-        for(PmsProductSaleAttr pmsProductSaleAttr : PmsProductSaleAttrs){
+        for (PmsProductSaleAttr pmsProductSaleAttr : PmsProductSaleAttrs) {
             pmsProductSaleAttr.setProductId(pmsProductInfo.getId());
             pmsProductSaleAttrMapper.insertSelective(pmsProductSaleAttr);
         }
 
         //保存销售属性值信息
-        for(PmsProductSaleAttr pmsProductSaleAttr : PmsProductSaleAttrs){
+        for (PmsProductSaleAttr pmsProductSaleAttr : PmsProductSaleAttrs) {
             List<PmsProductSaleAttrValue> pmsProductSaleAttrValues = pmsProductSaleAttr.getSpuSaleAttrValueList();
-            for(PmsProductSaleAttrValue pmsProductSaleAttrValue : pmsProductSaleAttrValues){
+            for (PmsProductSaleAttrValue pmsProductSaleAttrValue : pmsProductSaleAttrValues) {
                 pmsProductSaleAttrValue.setProductId(pmsProductInfo.getId());
                 pmsProductSaleAttrValue.setSaleAttrId(pmsProductSaleAttr.getSaleAttrId());
                 pmsProductSaleAttrValueMapper.insertSelective(pmsProductSaleAttrValue);
@@ -91,5 +93,26 @@ public class SpuServiceImpl implements SpuService {
         }
 
         return "success";
+    }
+
+    //查询sku销售信息
+    @Override
+    public List<PmsProductSaleAttr> spuSaleAttrListCheckBySku(String productId, String skuId) {
+        PmsProductSaleAttr pmsProductSaleAttr = new PmsProductSaleAttr();
+        pmsProductSaleAttr.setProductId(productId);
+        List<PmsProductSaleAttr> pmsProductSaleAttrs = pmsProductSaleAttrMapper.select(pmsProductSaleAttr);
+        for (PmsProductSaleAttr productSaleAttr : pmsProductSaleAttrs) {
+            String saleAttrId = productSaleAttr.getSaleAttrId();
+            PmsProductSaleAttrValue pmsProductSaleAttrValue = new PmsProductSaleAttrValue();
+            pmsProductSaleAttrValue.setProductId(productId);
+            pmsProductSaleAttrValue.setSaleAttrId(productSaleAttr.getSaleAttrId());
+            List<PmsProductSaleAttrValue> pmsProductSaleAttrValues = pmsProductSaleAttrValueMapper.select(pmsProductSaleAttrValue);
+            productSaleAttr.setSpuSaleAttrValueList(pmsProductSaleAttrValues);
+        }
+
+
+        List<PmsProductSaleAttr> pmsProductSaleAttrss = pmsProductSaleAttrMapper.selectSpuSaleAttrListCheckBySku(productId, skuId);
+
+        return pmsProductSaleAttrss;
     }
 }

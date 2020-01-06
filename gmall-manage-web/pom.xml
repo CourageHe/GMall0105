@@ -21,8 +21,6 @@
     </properties>
 
 
-
-
     <dependencies>
         <dependency>
             <groupId>com.couragehe.gmall</groupId>

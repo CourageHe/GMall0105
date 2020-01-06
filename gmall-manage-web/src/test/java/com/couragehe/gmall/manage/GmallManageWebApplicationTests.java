@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class GmallManageWebApplicationTests {
 
     @Test
-     public static void contextLoads() throws Exception {
+    public static void contextLoads() throws Exception {
         String imgUrl = "192.168.10.100";
         //配置fdfs全局连接地址
         //最好不要起奇怪的文件名
@@ -24,14 +24,15 @@ class GmallManageWebApplicationTests {
         TrackerServer trackerServer = trackerClient.getConnection();
 
         //通过tracker获得一个Storage连接客户端
-        StorageClient storageClient = new StorageClient(trackerServer,null);
-        String[]uploadInfos = storageClient.upload_file("F:/123.png","png",null);
-        for(String uploadInfo : uploadInfos){
+        StorageClient storageClient = new StorageClient(trackerServer, null);
+        String[] uploadInfos = storageClient.upload_file("C:/Users/52423/Desktop/TestImages/ceF64KmBRisK.jpg", "png", null);
+        for (String uploadInfo : uploadInfos) {
 
-            imgUrl+="/"+uploadInfo;
+            imgUrl += "/" + uploadInfo;
         }
         System.out.println(imgUrl);
     }
+
     public static void main(String[] args) throws Exception {
         GmallManageWebApplicationTests.contextLoads();
     }

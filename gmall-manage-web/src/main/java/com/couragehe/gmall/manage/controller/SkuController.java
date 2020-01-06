@@ -19,7 +19,7 @@ public class SkuController {
 
     @RequestMapping("saveSkuInfo")
     @ResponseBody
-    public String saveSkuInfo(@RequestBody PmsSkuInfo pmsSkuInfo){
+    public String saveSkuInfo(@RequestBody PmsSkuInfo pmsSkuInfo) {
         //处理默认图片
         String skuDefaultImg = pmsSkuInfo.getSkuDefaultImg();
         if (StringUtils.isBlank(skuDefaultImg)) {

@@ -31,7 +31,7 @@ public class PmsUploadUtils {
         }
 
         //通过tracker获得一个Storage连接客户端
-        StorageClient storageClient = new StorageClient(trackerServer,null);
+        StorageClient storageClient = new StorageClient(trackerServer, null);
 
         try {
             //获得上传的二进制对象
@@ -39,12 +39,12 @@ public class PmsUploadUtils {
 
             //获得文件后缀名
             String orginalFilename = multipartFile.getOriginalFilename();
-            String extName = orginalFilename.substring(orginalFilename.lastIndexOf(".")+1);
+            String extName = orginalFilename.substring(orginalFilename.lastIndexOf(".") + 1);
 
             //组合服务器返回的图片url地址
-            String []uploadInfos = storageClient.upload_file(bytes,extName,null);
-            for(String uploadInfo : uploadInfos){
-                imgUrl+= "/"+uploadInfo;
+            String[] uploadInfos = storageClient.upload_file(bytes, extName, null);
+            for (String uploadInfo : uploadInfos) {
+                imgUrl += "/" + uploadInfo;
             }
 
         } catch (Exception e) {

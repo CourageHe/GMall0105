@@ -17,6 +17,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UmsMemberReceiveAddressMapper umsMemberReceiveAddressMapper;
+
     @Override
     public List<UmsMember> getAllUser() {
         List<UmsMember> umsMembers = userMapper.selectAll();//selectAllUser();
@@ -33,9 +34,9 @@ public class UserServiceImpl implements UserService {
 //         List<UmsMemberReceiveAddress> umsMemberReceiveAddresses = umsMemberReceiveAddressMapper.selectByExample(e);
 
         //封装的参数对象
-        UmsMemberReceiveAddress umsMemberReceiveAddress= new UmsMemberReceiveAddress();
+        UmsMemberReceiveAddress umsMemberReceiveAddress = new UmsMemberReceiveAddress();
         umsMemberReceiveAddress.setMemberId(memberId);
-        List<UmsMemberReceiveAddress> umsMemberReceiveAddresses= umsMemberReceiveAddressMapper.select(umsMemberReceiveAddress);
+        List<UmsMemberReceiveAddress> umsMemberReceiveAddresses = umsMemberReceiveAddressMapper.select(umsMemberReceiveAddress);
 
         return umsMemberReceiveAddresses;
     }

@@ -1,4 +1,4 @@
-package com.couragehe.gmall.manage;
+package com.couragehe.gmall;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
