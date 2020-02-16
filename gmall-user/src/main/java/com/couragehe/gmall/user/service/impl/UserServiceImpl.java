@@ -40,4 +40,19 @@ public class UserServiceImpl implements UserService {
 
         return umsMemberReceiveAddresses;
     }
+
+    @Override
+    public UmsMember login(UmsMember umsMember) {
+        return null;
+    }
+
+    @Override
+    public void addUserToken(String token, String memberId) {
+
+    }
+
+    @Override
+    public void addOauthUser(UmsMember umsMember) {
+
+    }
 }
